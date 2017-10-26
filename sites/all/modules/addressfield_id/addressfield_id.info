@@ -1,0 +1,12 @@
+name = Address Field Indonesia
+description = Manage a flexible address field, implementing the xNAL standard for Indonesia.
+package = Fields
+dependencies[] = addressfield
+core = 7.x
+
+; Information added by Drupal.org packaging script on 2017-07-11
+version = "7.x-1.6"
+core = "7.x"
+project = "addressfield_id"
+datestamp = "1499797745"
+

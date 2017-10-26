@@ -1,0 +1,15 @@
+name = Commerce RajaOngkir
+description = Integrates RajaOngkir shipping service API with Commerce shipping.
+package = Commerce (shipping)
+dependencies[] = commerce_shipping
+dependencies[] = commerce_physical
+dependencies[] = addressfield_id
+configure = admin/commerce/config/shipping/methods/commerce-rajaongkir/edit
+core = 7.x
+
+; Information added by Drupal.org packaging script on 2017-02-23
+version = "7.x-1.0"
+core = "7.x"
+project = "commerce_rajaongkir"
+datestamp = "1487854694"
+

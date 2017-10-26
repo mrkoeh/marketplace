@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * @file
+ * Addressfield ID primary module file.
+ */
+
+/**
+ * Implements hook_help.
+ */
+function addressfield_id_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#addressfield_id':
+      $output = FALSE;
+      $readme = dirname(__FILE__) . '/README.md';
+      if (file_exists($readme)) {
+        $contents = file_get_contents($readme);
+        $output = '<pre>' . $contents . '</pre>';
+        if (module_exists('markdown')) {
+          $info = module_invoke('markdown', 'filter_info');
+          $markdown = $info['filter_markdown'];
+          if (function_exists($markdown['process callback'])) {
+            $output = $markdown['process callback']($contents, NULL);
+          }
+        }
+      }
+
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_directory.
+ */
+function addressfield_id_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'addressfield') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Implements hook_addressfield_address_formats_alter.
+ */
+function addressfield_id_addressfield_address_formats_alter(&$address_formats) {
+  $address_formats['ID']['used_fields'][] = 'dependent_locality';
+  $address_formats['ID']['required_fields'] = array(
+    'administrative_area',
+    'locality',
+    'dependent_locality',
+    'postal_code',
+  );
+}
+
+/**
+ * Implements hook_addressfield_administrative_areas_alter.
+ */
+function addressfield_id_addressfield_administrative_areas_alter(
+  &$administrative_areas
+) {
+  module_load_include(
+    'inc',
+    'addressfield_id',
+    'includes/addressfield_id.locality_block'
+  );
+  $administrative_areas['ID'] = addressfield_id_administrative_area();
+}
